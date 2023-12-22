@@ -34,7 +34,7 @@ public class GameController {
             game.setPlayer(authenticatedPlayer);
 
             gameService.submitGameResult(game);
-            return ResponseEntity.ok("Игра добавлена, игры и победы посчитаны");
+            return ResponseEntity.ok("Игра добавлена");
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Ошибка при обработке запроса");

@@ -23,5 +23,4 @@ public class Game{
     private Player player;
 
     private boolean isWinner;
-
 }

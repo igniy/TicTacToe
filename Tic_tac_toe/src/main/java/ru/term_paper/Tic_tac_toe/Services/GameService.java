@@ -17,17 +17,23 @@ import java.util.List;
 public class GameService {
 
     private final GameRepository gameRepository;
-    private final AuthenticatedPersonService authenticatedPersonService;
+
+    private final PlayerRepository playerRepository;
 
     public ResponseEntity<String> submitGameResult(Game game) {
         gameRepository.save(game);
-        Player gameCounter = authenticatedPersonService.getAuthenticatedPlayer();
+
+        Player gameCounter = game.getPlayer();
         int numberOfGames = gameCounter.getGamesPlayed() + 1;
         gameCounter.setGamesPlayed(numberOfGames);
+
         if (game.isWinner()){
             int numberOfWins = gameCounter.getGamesWon() + 1;
             gameCounter.setGamesWon(numberOfWins);
         }
+
+        playerRepository.save(gameCounter);
+
         return ResponseEntity.ok("Игра добавлена, игры и победы посчитаны");
     }
     public List<Game> findAll() {
